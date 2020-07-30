@@ -1,0 +1,47 @@
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import {
+  incrementAction,
+  decrementAction,
+  resetAction,
+} from "../action/indexAction";
+
+class Counter extends Component {
+  render() {
+    const { count, increment, decrement, reset } = this.props;
+    return (
+      <div>
+        <h2>Counter</h2>
+        <button onClick={decrement}>-</button>
+        <span> {count} </span>
+        <button onClick={increment}>+</button>
+        <br />
+        <br />
+        <button onClick={reset}>Reset</button>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    count: state.count,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      increment: incrementAction,
+      decrement: decrementAction,
+      reset: resetAction,
+    },
+    dispatch
+  );
+}
+
+Counter = connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+export default Counter;
